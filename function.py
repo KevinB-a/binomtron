@@ -12,30 +12,39 @@ def question_participant():
 
 def add_more_participants():
     """funtiion who ask to user if he want to add a participant """
-    while question_participant() == 'yes': 
-        print("Who are the participants?") 
-        new_participant = input()
-        add_participants(new_participant)
-        print(participants)
+    try:
+        while question_participant() == 'yes': 
+            print("Who are the participants?") 
+            new_participant = input()
+            add_participants(new_participant)
+            print(participants)
+    except TypeError as e:
+        print("voici l'erreur :", e)
+
 
 def person_number(participants):
     """ Function that asks for a number and returns it checking that it is a number and that the number is correct so that the groups are valid"""
     print("Entrez le nombre de personnes par groupe :")
     num_to_select_input=input() #Demande un chiffre
-    while not num_to_select_input.isdigit() or int(num_to_select_input) > len(participants)//2 or int(num_to_select_input) <= 1:  #Vérifie que l'utilisateur a bien rentré un chiffre valide
-        if not num_to_select_input.isdigit(): #Cas où l'entrée n'est pas un chiffre
-            print("Entrez le nombre de personnes par groupe EN CHIFFRE :")
-            num_to_select_input=input() #Demande un nouveau chiffre
-        elif int(num_to_select_input) > len(participants)//2: #Cas où le chiffre est trop grand (génèrerait qu'un seul groupe)
-            print("Nombre invalide : Trop grand")
-            print("Entrez le nombre de personnes par groupe :")
-            num_to_select_input=input() #Demande un nouveau chiffre
-        elif int(num_to_select_input) <= 0 : #Cas où le nombre est négatif ou égal à 1 
-            print("Nombre invalide : Trop petit")
-            print("Entrez le nombre de personnes par groupe :")
-            num_to_select_input=input() #Demande un nouveau chiffre
-        else:
-            break
+    try:
+        while not num_to_select_input.isdigit() or int(num_to_select_input) > len(participants)//2 or int(num_to_select_input) <= 1:  #Vérifie que l'utilisateur a bien rentré un chiffre valide
+            if not num_to_select_input.isdigit(): #Cas où l'entrée n'est pas un chiffre
+                print("Entrez le nombre de personnes par groupe EN CHIFFRE :")
+                num_to_select_input=input() #Demande un nouveau chiffre
+            elif int(num_to_select_input) > len(participants)//2: #Cas où le chiffre est trop grand (génèrerait qu'un seul groupe)
+                print("Nombre invalide : Trop grand")
+                print("Entrez le nombre de personnes par groupe :")
+                num_to_select_input=input() #Demande un nouveau chiffre
+            elif int(num_to_select_input) <= 0 : #Cas où le nombre est négatif ou égal à 1 
+                print("Nombre invalide : Trop petit")
+                print("Entrez le nombre de personnes par groupe :")
+                num_to_select_input=input() #Demande un nouveau chiffre
+            else:
+                break
+
+    except TypeError as e :
+        print("voici l'erreur :",e)
+
     return (int(num_to_select_input)) #Renvoie le nombre entré
 
 def p_aleatoire(participants):
@@ -64,13 +73,18 @@ def add_competence():
     else:
         p_aleatoire(participants)
         return p_aleatoire(participants)
+
         
 def a_competence(participants):
     """function that adds a skill to a participant """
     dico={}
-    for participant in participants:
-        print("Quelle est la note de {}(1 à 5)".format(participant))
+    try:
+        for participant in participants:
+            print("Quelle est la note de {}(1 à 5)".format(participant))
         dico[participant]=input()
+    except TypeError as e:
+        print("voici l'erreur :", e)
+
     return dico
 
 def question_niveau():
@@ -85,7 +99,7 @@ def question_niveau():
         print("voici l'erreur :", e)
     
 def p_meme_niveau(participants):
-    """ """
+    """function who sort participants by level and create groups """
     num_to_select=person_number(participants)
     num_of_group = len(participants)//num_to_select
     group_p=[]
