@@ -1,6 +1,7 @@
 import function as fc
 
 if __name__ == "__main__":
+    
     print("Who are the participants?")    
     participant1= input()
 

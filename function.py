@@ -39,7 +39,7 @@ def person_number(participants):
     return (int(num_to_select_input)) #Renvoie le nombre entré
 
 def p_aleatoire(participants):
-    """ """
+    """add a participant in list  """
     num_to_select=person_number(participants)
     num_of_group = len(participants)//num_to_select
     group=[]
