@@ -75,26 +75,33 @@ def a_competence(participants):
 
 def question_niveau():
     """function to make homogeneous groups """
-    print("Do you want to share by equal levels?")
-    resp=input()
-    if resp == 'yes':
-         return p_meme_niveau(participants)
-    else:
-        return p_aleatoire(participants)
+    resp=input("Do you want to share by equal levels?")
+    try:
+        if resp == 'yes':
+            return p_meme_niveau(participants)
+        else:
+            return p_aleatoire(participants)
+    except TypeError as e:
+        print("voici l'erreur :", e)
     
 def p_meme_niveau(participants):
+    """ """
     num_to_select=person_number(participants)
     num_of_group = len(participants)//num_to_select
     group_p=[]
     p_2=sorted(a_competence(participants).items(), key=lambda t: t[1]) #Trie la liste des apprenants en fonction des notes
-    for i in range(num_of_group): #On itere autant de fois qu'on veut de groupes
-        if len(p_2)-len(group_p)*num_to_select>=num_to_select: #Permet de vérifier qu'il y a assez de personnes pour un groupe complet
-            group_p.append([])
-            for j in range(num_to_select): #On itere autant de fois qu'il y a de personnes qui viennent d'être assignées à un groupe
-                group_p[i].append(p_2[i*num_to_select+j][0])
-        else:
-            break #Arrête d'essayer de créer des groupes si il ne reste plus assez de personnes
+    try:
+        for i in range(num_of_group): #On itere autant de fois qu'on veut de groupes
+            if len(p_2)-len(group_p)*num_to_select>=num_to_select: #Permet de vérifier qu'il y a assez de personnes pour un groupe complet
+                group_p.append([])
+                for j in range(num_to_select): #On itere autant de fois qu'il y a de personnes qui viennent d'être assignées à un groupe
+                    group_p[i].append(p_2[i*num_to_select+j][0])
+            else:
+                break #Arrête d'essayer de créer des groupes si il ne reste plus assez de personnes
 
-    for k in range (len(participants)-len(group_p)*num_to_select): #On regarde s'il reste des personnes dans le groupe participants
-        group_p[-1-k%len(group_p)].append(p_2[-1-k][0]) #On les répartit 1 par 1 dans les groupes déjà existants en commençant par les plus proches en niveau (k%len pour par exemple groupes de 4 avec 11 personnes : on veut que répartir dans les 2 groupes déjà existants)
-    return group_p    
+        for k in range (len(participants)-len(group_p)*num_to_select): #On regarde s'il reste des personnes dans le groupe participants
+            group_p[-1-k%len(group_p)].append(p_2[-1-k][0]) #On les répartit 1 par 1 dans les groupes déjà existants en commençant par les plus proches en niveau (k%len pour par exemple groupes de 4 avec 11 personnes : on veut que répartir dans les 2 groupes déjà existants)
+    
+    except TypeError as e:
+        print("voici l'erreur :", e)
+    return group_p
