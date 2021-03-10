@@ -57,7 +57,7 @@ def p_aleatoire(participants):
     return group
 
 def add_competence():
-    """ """
+    """function who asks to user to add a skill """
     skill= input() 
     if skill == 'yes': 
         return question_niveau()
@@ -66,7 +66,7 @@ def add_competence():
         return p_aleatoire(participants)
         
 def a_competence(participants):
-    """ """"
+    """function that adds a skill to a participant """
     dico={}
     for participant in participants:
         print("Quelle est la note de {}(1 à 5)".format(participant))
@@ -74,6 +74,7 @@ def a_competence(participants):
     return dico
 
 def question_niveau():
+    """function to make homogeneous groups """
     print("Do you want to share by equal levels?")
     resp=input()
     if resp == 'yes':
