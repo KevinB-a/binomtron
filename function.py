@@ -66,6 +66,7 @@ def add_competence():
         return p_aleatoire(participants)
         
 def a_competence(participants):
+    """ """"
     dico={}
     for participant in participants:
         print("Quelle est la note de {}(1 à 5)".format(participant))
